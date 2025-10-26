@@ -1,0 +1,60 @@
+# 应用服务 WEB 访问端口
+server:
+  port : 8080
+
+
+#指定Mybatis的Mapper文件
+mybatis:
+  mapper-locations: classpath:mappers/*xml
+  type-aliases-package: com.example.mybatisdemo.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/mybatisdb?useUnicode=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 123456
+
+
+# pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+thread-pool:
+  fast:
+    prefix: "fastExecutor"
+    core-pool-size: 10
+    max-pool-size: 50
+    keep-alive: 60
+    queue-capacity: 300
+  slow:
+    prefix: "slowExecutor"
+    core-pool-size: 3
+    max-pool-size: 20
+    keep-alive: 60
+    queue-capacity: 300
+  delay:
+    prefix: "slowExecutor"
+    core-pool-size: 3
+    max-pool-size: 10
+    keep-alive: 60
+    queue-capacity: 300
+
+disruptor:
+  prefix: "consumeThread-"
+  queueSize: 16
+  bufferSize: 1024
+
+schedule:
+  checkInterval: 60
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
